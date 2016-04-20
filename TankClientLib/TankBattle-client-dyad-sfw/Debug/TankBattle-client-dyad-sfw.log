@@ -1,0 +1,14 @@
+﻿Build started 4/20/2016 12:47:21 PM.
+     1>Project "C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-client-dyad-sfw\TankBattle-client-dyad-sfw.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\Debug\TankBattle-client-dyad-sfw.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\libs\sfw\Debug /LIBPATH:C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\Debug sfw.lib ws2_32.lib "TankBattle-net.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\Debug\TankBattle-client-dyad-sfw.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\Debug\TankBattle-client-dyad-sfw.lib" /MACHINE:X86 Debug\dyad.obj
+         Debug\Agent.obj
+         Debug\main.obj
+     1>Agent.obj : error LNK2019: unresolved external symbol "private: void __thiscall Agent::aim(void)" (?aim@Agent@@AAEXXZ) referenced in function "public: struct tankNet::TankBattleCommand __thiscall Agent::update(struct tankNet::TankBattleStateData const &)" (?update@Agent@@QAE?AUTankBattleCommand@tankNet@@ABUTankBattleStateData@3@@Z)
+     1>Agent.obj : error LNK2019: unresolved external symbol "private: void __thiscall Agent::fire(void)" (?fire@Agent@@AAEXXZ) referenced in function "public: struct tankNet::TankBattleCommand __thiscall Agent::update(struct tankNet::TankBattleStateData const &)" (?update@Agent@@QAE?AUTankBattleCommand@tankNet@@ABUTankBattleStateData@3@@Z)
+     1>C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\Debug\TankBattle-client-dyad-sfw.exe : fatal error LNK1120: 2 unresolved externals
+     1>Done Building Project "C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-client-dyad-sfw\TankBattle-client-dyad-sfw.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.14

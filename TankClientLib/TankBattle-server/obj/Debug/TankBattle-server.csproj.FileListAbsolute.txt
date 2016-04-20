@@ -1,0 +1,6 @@
+C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-server\bin\Debug\TankBattle-server.exe.config
+C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-server\bin\Debug\TankBattle-server.exe
+C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-server\bin\Debug\TankBattle-server.pdb
+C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-server\obj\Debug\TankBattle-server.csprojResolveAssemblyReference.cache
+C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-server\obj\Debug\TankBattle-server.exe
+C:\Users\kevin.moore\Documents\GitHub\TankBattle\TankClientLib\TankBattle-server\obj\Debug\TankBattle-server.pdb
