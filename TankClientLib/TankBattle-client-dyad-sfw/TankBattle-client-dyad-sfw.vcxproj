@@ -131,10 +131,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\libs\dyad\dyad.c" />
+    <ClCompile Include="Agent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Solver.h" />
     <ClInclude Include="TankBattleHeader.h" />
+    <ClInclude Include="vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
