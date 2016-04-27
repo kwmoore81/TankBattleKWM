@@ -18,7 +18,7 @@ class Agent
 
 	vec2 lkPos;
 	vec2 tPos;
-
+	float enemyH;
 	Grid map;
 	enum cannonState
 	{
