@@ -17,9 +17,14 @@ float vec2::angle() const
 	return atan2f(y, x);
 }
 
-vec2 vec2::normal() const
+//vec2 vec2::normal() const
+//{
+//	return *this / magnitude();
+//}
+
+vec2 vec2::random()
 {
-	return *this / magnitude();
+	return normal(vec2{ 1 - 2 * (float)rand() / RAND_MAX, 1 - 2 * (float)rand() / RAND_MAX });
 }
 
 vec2 perp(vec2 &a)
@@ -65,6 +70,8 @@ vec2 mix(const vec2 & start, const vec2 & end, float t)
 	return mixed;
 }
 
+
+
 vec2 lerp(const vec2 & start, const vec2 & end, float t)
 {
 	vec2 lerped;
@@ -102,7 +109,7 @@ vec2 reflect(const vec2 & incident, const vec2 & normal)
 
 vec2 project(const vec2 & a, const vec2 & b)
 {
-	return dot(a, b) * b.normal();
+	return dot(a, b) * normal(b);
 }
 
 vec2 snap(const vec2 & val, const vec2 & lower, const vec2 & upper)

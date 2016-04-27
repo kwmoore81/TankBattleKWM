@@ -26,7 +26,7 @@ public:
 		for (unsigned j = 0; j < cols; ++j)
 			for (unsigned i = 0; i < rows; ++i)
 			{
-				vec2 pos = start + vec2{ (float)i, (float)j } *offset;
+				vec2 pos = start + vec2{ (float)i, (float)j } * offset;
 				size_t id = map.addNode(pos);
 			}
 
@@ -45,7 +45,7 @@ public:
 	// Find the closest node to the argument vector and set its edge weights to weight
 	void addObstacle(const vec2 &a, float weight = FLT_MAX)
 	{
-		size_t n = map.findNode(a, distance, 10);
+		size_t n = map.findNode(a , distance , 10);
 
 		size_t len = map.getNodeEdges(n).size();
 
@@ -56,6 +56,7 @@ public:
 
 		for each(size_t e in edges)
 			map.EdgeAt(e).cost = weight;
+		
 	}
 };
 

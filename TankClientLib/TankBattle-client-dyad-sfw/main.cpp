@@ -42,8 +42,6 @@ int main(int argc, char** argv)
 {
 	Agent agent;
 
-	
-
     char * serverIPAddress = "";
 
     // handle console arguments
