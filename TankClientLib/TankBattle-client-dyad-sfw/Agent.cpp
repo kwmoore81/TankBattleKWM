@@ -28,7 +28,8 @@ void Agent::scan()
 
 			if (dot(tf, normal(target - cp)) > .87f)
 			{
-				SetCannonState(Fire);
+				cCannon = Fire;
+				//cTank = TStop;
 			}
 			break;
 		}
@@ -53,13 +54,13 @@ void Agent::fire()
 	vec2 cp = vec2::fromXZ(current.position);
 	
 	tex.cannonMove = tankNet::CannonMovementOptions::HALT;
-	SetTankState(TStop);
+	cTank = TStop;
 	tex.fireWish = current.canFire;
 	
 	if (tack.inSight = 0)
 	{
-		SetCannonState(Scan);
-		SetTankState(Scout);
+		cCannon = Scan;
+		cTank = Scout;
 	}
 
 		/*if (tack.inSight != 0)
@@ -85,11 +86,14 @@ void Agent::fire()
 void Agent::cStop()
 {
 	tex.cannonMove = tankNet::CannonMovementOptions::HALT;
-	SetCannonState(Fire);
+	cCannon = Fire;
 	if (tack.inSight == 0)
 	{
-		SetTankState(Scout);
-		SetCannonState(Scan);
+		cCannon = Fire;
+	}
+	else
+	{
+		cTank = Scout;
 	}
 }
 
@@ -120,6 +124,16 @@ void Agent::scout()
 	if (dot(cf, tf) > .87f)
 	{
 		tex.tankMove = tankNet::TankMovementOptions::FWRD;
+
+		if (current.position - previous.position < 20)
+		{
+			cTank = Reverse;
+		}
+		if (current.currentHealth < previous.currentHealth)
+		{
+			cTank = Reverse;
+		}
+		cTank = Scout;
 	}
 	
 	else if (cf < target)
@@ -148,7 +162,7 @@ void Agent::aim()
 
 			if (dot(tf, normal(target - cp)) > .87f)
 			{
-				SetCannonState(Fire);
+				cCannon = Fire;
 			}
 			break;
 		}
@@ -171,7 +185,7 @@ void Agent::aim()
 		//}
 		else
 		{
-			SetTankState(Scout);
+			cTank = Scout;
 		}
 	}
 	/*if (current.currentHealth < previous.currentHealth)
@@ -197,20 +211,20 @@ void Agent::forward()
 	     }*/
 	if (current.position - previous.position < 20)
 	{
-		SetTankState(Reverse);
+		cTank = Reverse;
 	}
 		if (current.currentHealth < previous.currentHealth)
 		{
-			SetTankState(Reverse);
+			cTank = Reverse;
 		}
-		SetTankState(Scout);
+		cTank = Scout;
 }
 
 void Agent::right()
 {
 	tex.tankMove = tankNet::TankMovementOptions::RIGHT;
 	
-	SetTankState(Scout);
+	cTank = Scout;
 	
 }
 
@@ -225,12 +239,12 @@ void Agent::reverse()
 	
 	if (current.position - previous.position > 20)
 	{
-		SetTankState(Right);
+		cTank = Right;
 	}
 	
 	{
-		SetTankState(Scout);
-		SetCannonState(Scan);
+		cTank = Scout;
+		cCannon = Scan;
 	}
 
 }
@@ -239,10 +253,10 @@ void Agent::tStop()
 {
 	vec2 cp = vec2::fromXZ(current.position);
 	tex.tankMove = tankNet::TankMovementOptions::HALT;
-	if (tack.inSight == 0 || distance(target, cp) > 35)
+	if (tack.inSight == 0 || distance(target, cp) > 100)
 	{
-		SetTankState(Scout);
-		SetCannonState(Scan);
+		cTank = Scout;
+		cCannon = Scan;
 	}
 }
 
@@ -251,8 +265,8 @@ tankNet::TankBattleCommand Agent::update(const tankNet::TankBattleStateData &sta
 
 	if (state.tacticoolCount <= 0)
 	{
-		SetTankState(Scout);
-		SetCannonState(Scan);
+		cTank = Scout;
+		cCannon = Scan;
 	}
 
 	current = state;

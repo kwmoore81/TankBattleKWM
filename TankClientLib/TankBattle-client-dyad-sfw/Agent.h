@@ -23,17 +23,17 @@ class Agent
 	enum cannonState
 	{
 		Scan, Aim, Fire, CStop
-	};
-
+	}cCannon = Scan;
+	
 	enum tankState
 	{
 		Forward, Right, Left, Reverse, Scout, TStop
-	};
+	}cTank = Scout;
 
 	float randTimer = 0;
 	vec2 target;
-	cannonState cCannon; // = Scan;
-	tankState cTank;
+	//cannonState cCannon; // = Scan;
+	//tankState cTank;
 
 	void scan();
 	void aim();
