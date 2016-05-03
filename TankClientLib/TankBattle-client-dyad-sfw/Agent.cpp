@@ -29,7 +29,7 @@ void Agent::scan()
 			if (dot(tf, normal(target - cp)) > .87f)
 			{
 				cCannon = Fire;
-				//cTank = TStop;
+				
 			}
 			break;
 		}
@@ -57,30 +57,73 @@ void Agent::fire()
 	cTank = TStop;
 	tex.fireWish = current.canFire;
 	
-	if (tack.inSight = 0)
+	
+	
+	if (tack.inSight == 0)
 	{
 		cCannon = Scan;
 		cTank = Scout;
 	}
-
-		/*if (tack.inSight != 0)
+	//(dot(canF, lkPos)
+		if (tack.inSight != 0)
 		{
-			if (dot(canF, lkPos) < .87f)
+			
+			if (dot(perp(cNormal), lkPosNorm) < 1)
 			{
-				tex.fireWish = current.canFire;
-			}
-			else if (dot(perp(canF), lkPos) < 0)
-			{
+				//cCannon = CRight;
 				tex.cannonMove = tankNet::CannonMovementOptions::RIGHT;
+				
+				if (dot(canF, lkPos))
+				{
+					tex.fireWish = current.canFire;
+				}
+			
 			}
 			else
 			{
+				//cCannon = CLeft;
 				tex.cannonMove = tankNet::CannonMovementOptions::LEFT;
 			}
-
-		}*/
+			if (dot(canF, lkPos))
+			{
+				tex.fireWish = current.canFire;
+			}
+		}
 		
-	//}
+}
+
+void Agent::cRight()
+{
+	vec2 canF = vec2::fromXZ(current.cannonForward);
+	tex.cannonMove = tankNet::CannonMovementOptions::RIGHT;
+
+	if (dot(canF, lkPos) < .30f)
+	{
+		cCannon = CStop;
+		tex.fireWish = current.canFire;
+	}
+	else if (tack.inSight == 0)
+	{
+		cCannon = Scan;
+		cTank = Scout;
+	}
+}
+
+void Agent::cLeft()
+{
+	vec2 canF = vec2::fromXZ(current.cannonForward);
+	tex.cannonMove = tankNet::CannonMovementOptions::LEFT;
+
+	if (dot(canF, lkPos) < .30f)
+	{
+		cCannon = CStop;
+		tex.fireWish = current.canFire;
+	}
+	else if (tack.inSight == 0)
+	{
+		cCannon = Scan;
+		cTank = Scout;
+	}
 }
 
 void Agent::cStop()
@@ -253,7 +296,7 @@ void Agent::tStop()
 {
 	vec2 cp = vec2::fromXZ(current.position);
 	tex.tankMove = tankNet::TankMovementOptions::HALT;
-	if (tack.inSight == 0 || distance(target, cp) > 100)
+	if (tack.inSight == 0 || distance(target, cp) > 25)
 	{
 		cTank = Scout;
 		cCannon = Scan;
@@ -268,19 +311,28 @@ tankNet::TankBattleCommand Agent::update(const tankNet::TankBattleStateData &sta
 		cTank = Scout;
 		cCannon = Scan;
 	}
+	cForward.x = state.cannonForward[0];
+	cForward.y = state.cannonForward[3];
+	cNormal = normal(cForward);
 
 	current = state;
 	tack = state.tacticoolData[0];
 	tPos.x = state.position[0];
 	tPos.y = state.position[3];
+	
 	lkPos.x = tack.lastKnownPosition[0];
 	lkPos.y = tack.lastKnownPosition[3];
+	lkPosNorm = normal(lkPos - tPos);
+
+	 
 	
 	switch (cCannon)
 	{
 	case Scan: scan(); break;
 	case Aim: aim(); break;
 	case Fire: fire(); break;
+	case CRight: cRight(); break;
+	case CLeft: cLeft(); break;
 	case CStop: cStop(); break;
 	
 	}

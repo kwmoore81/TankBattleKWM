@@ -18,11 +18,15 @@ class Agent
 
 	vec2 lkPos;
 	vec2 tPos;
+	vec2 cForward;
+	vec2 cNormal;
+	vec2 lkPosNorm;
+	
 	float enemyH;
 	Grid map;
 	enum cannonState
 	{
-		Scan, Aim, Fire, CStop
+		Scan, Aim, Fire, CRight, CLeft, CStop
 	}cCannon = Scan;
 	
 	enum tankState
@@ -38,6 +42,8 @@ class Agent
 	void scan();
 	void aim();
 	void fire();
+	void cRight();
+	void cLeft();
 	void cStop();
 	void scout();
 	void forward();

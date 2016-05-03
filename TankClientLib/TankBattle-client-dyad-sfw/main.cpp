@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 {
 	Agent agent;
 
-    char * serverIPAddress = "";
+    char * serverIPAddress = "" /*"10.15.22.31"*/;
 
     // handle console arguments
     if (argc > 2)
