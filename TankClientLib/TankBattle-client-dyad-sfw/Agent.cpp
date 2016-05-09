@@ -68,26 +68,28 @@ void Agent::fire()
 		if (tack.inSight != 0)
 		{
 			
-			if (dot(perp(cNormal), lkPosNorm) < 1)
+			if (dot(perp(cNormal), lkPosNorm) < .87)
 			{
 				//cCannon = CRight;
 				tex.cannonMove = tankNet::CannonMovementOptions::RIGHT;
-				
-				if (dot(canF, lkPos))
+				tex.fireWish = current.canFire;
+				/*if (dot(canF, lkPos))
 				{
-					tex.fireWish = current.canFire;
-				}
+					
+				}*/
 			
 			}
 			else
 			{
 				//cCannon = CLeft;
 				tex.cannonMove = tankNet::CannonMovementOptions::LEFT;
-			}
-			if (dot(canF, lkPos))
-			{
 				tex.fireWish = current.canFire;
 			}
+			
+			/*if (dot(canF, lkPos))
+			{
+				
+			}*/
 		}
 		
 }
@@ -189,6 +191,8 @@ void Agent::scout()
 		tex.cannonMove = tankNet::CannonMovementOptions::LEFT;
 		tex.tankMove = tankNet::TankMovementOptions::LEFT;
 	}
+
+	previous = current;
 }
 
 void Agent::aim()
@@ -282,9 +286,9 @@ void Agent::reverse()
 	
 	if (current.position - previous.position > 20)
 	{
-		cTank = Right;
+		tex.tankMove = tankNet::TankMovementOptions::BACK;
 	}
-	
+	else
 	{
 		cTank = Scout;
 		cCannon = Scan;
