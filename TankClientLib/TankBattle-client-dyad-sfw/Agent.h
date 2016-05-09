@@ -26,7 +26,7 @@ class Agent
 	Grid map;
 	enum cannonState
 	{
-		Scan, Aim, Fire, CRight, CLeft, CStop
+		Scan, Fire, CRight, CLeft, CStop
 	}cCannon = Scan;
 	
 	enum tankState
@@ -36,11 +36,8 @@ class Agent
 
 	float randTimer = 0;
 	vec2 target;
-	//cannonState cCannon; // = Scan;
-	//tankState cTank;
 
 	void scan();
-	void aim();
 	void fire();
 	void cRight();
 	void cLeft();

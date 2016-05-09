@@ -1,0 +1,73 @@
+Kevin Moore "Tank Battle" individual state rules and behaviors.
+
+
+"Scan" State:
+
+Spins the Turret around pulling from tacticoolData to find a target.
+If a target is found, The Cannon State changes to the "Fire" state.
+
+
+"Fire" State:
+
+Halts all movement for a moment with the "cStop" state, double checks that the target is inSight.
+Adjust the Cannon's aim with the "cRight" and "cLeft" states then fires.
+If the target becomes out of sight or moves to far away the cannon state 
+reverts back to the "Scan" state.
+
+
+"cRight" State:
+
+Turns the cannon right if the target is to the right.
+Reverts back to the "Scan" and "Scout" States if target is not inSight.
+
+"cLeft" State:
+
+Turns the cannon left is the target is to the left.
+Reverts back to the "Scan" and "Scout" States if target is not inSight.
+
+"cStop" State:
+
+Halts cannon movement and if inSight is true, changes to the "Fire" State.
+Otherwise it changes to the "Scout" State.
+
+
+"Scout" state:
+
+Picks a random target location and moves to that location. Uses Current 
+and Previous states to determine if an obstacle has been reached and 
+changes the the "Reverse" state. Also if the current health is less than
+the previous health which means the tank took damage, it changes to the 
+"Reverse" state.
+
+"Forward" State:
+
+Moves forward and changes to "Reverse" if and obstacle has been reached.
+Then reverts back to the "Scout" state.
+
+
+"Right" state:
+
+Turns the tank right, and reverts to the "Scout" state.
+
+"Left" state:
+
+Turns the tank Left, and reverts to the "Scout" state.
+
+"Reverse" State:
+
+Puts the tank in reverse, and checks to make sure that it has cleared 
+the obstacle. If it has, reverts the the "Scout" and "Scan" states.
+
+"tStop"
+
+Stops the tank to prepare for attacking. If the target has left sight
+or the distance is greater that the cannon's range, it reverts to 
+"Scout" and "Scan" states.
+
+
+
+
+
+
+
+

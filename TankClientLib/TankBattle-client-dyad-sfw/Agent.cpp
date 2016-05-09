@@ -34,18 +34,8 @@ void Agent::scan()
 			break;
 		}
 	}
-	/*if (tack.inSight != 0)
-	{
-		tex.cannonMove = tankNet::CannonMovementOptions::RIGHT;
-	}
-
-	else {
-		SetTankState(Forward);
-		SetCannonState(Fire);
-	}*/
+	
 }
-
-
 
 void Agent::fire()
 {
@@ -64,32 +54,23 @@ void Agent::fire()
 		cCannon = Scan;
 		cTank = Scout;
 	}
-	//(dot(canF, lkPos)
+	
 		if (tack.inSight != 0)
 		{
 			
 			if (dot(perp(cNormal), lkPosNorm) < .87)
 			{
-				//cCannon = CRight;
+
 				tex.cannonMove = tankNet::CannonMovementOptions::RIGHT;
-				tex.fireWish = current.canFire;
-				/*if (dot(canF, lkPos))
-				{
-					
-				}*/
-			
+				tex.fireWish = current.canFire;			
+		
 			}
 			else
 			{
-				//cCannon = CLeft;
 				tex.cannonMove = tankNet::CannonMovementOptions::LEFT;
 				tex.fireWish = current.canFire;
 			}
 			
-			/*if (dot(canF, lkPos))
-			{
-				
-			}*/
 		}
 		
 }
@@ -151,18 +132,12 @@ void Agent::scout()
 	vec2 cf = vec2::fromXZ(current.forward);
 
 	randTimer -= sfw::getDeltaTime();
-	/*if (tack.inSight != 0)
-	{
-		target = lkPos;
-		SetCannonState(Aim);
-	}*/
-	if (/*distance(target, cp) < 20 ||*/ randTimer < 0)
+
+	if (randTimer < 0)
 	{
 		target = vec2::random() * vec2 { 50, 50 };
 		randTimer = rand() % 4 + 2;
 	}
-
-	
 
 	vec2 tf = normal(target - cp);
 
@@ -195,67 +170,10 @@ void Agent::scout()
 	previous = current;
 }
 
-void Agent::aim()
-{
-	vec2 tf = vec2::fromXZ(current.cannonForward);
-	vec2 cp = vec2::fromXZ(current.position);
-	vec2 cf = vec2::fromXZ(current.forward);
-	vec2 canF = vec2::fromXZ(current.cannonForward);
-	for (int aimTarget = 0; aimTarget < current.playerCount - 1; ++aimTarget)
-	{
-		if (current.tacticoolData[aimTarget].inSight && current.canFire)
-		{
-			target = vec2::fromXZ(current.tacticoolData[aimTarget].lastKnownPosition);
-
-			if (dot(tf, normal(target - cp)) > .87f)
-			{
-				cCannon = Fire;
-			}
-			break;
-		}
-		/*if (tack.inSight != 0 && distance(target, cp) < 35)
-		{
-			SetTankState(TStop);
-			SetCannonState(CStop);
-
-			if (dot(canF, lkPos) > .86f)
-			{
-				tex.tankMove = tankNet::TankMovementOptions::RIGHT;
-			}
-			else
-			{
-				SetCannonState(Fire);
-			}*/
-			//canF = lkPos;
-			//cf = lkPos;
-			//SetTankState(Forward);
-		//}
-		else
-		{
-			cTank = Scout;
-		}
-	}
-	/*if (current.currentHealth < previous.currentHealth)
-	{
-		SetTankState(Reverse);
-	}*/
-}
-
-
-void Agent::forward()
+	void Agent::forward()
 {
 	tex.tankMove = tankNet::TankMovementOptions::FWRD;
-	/*if (tack.inSight != 0)
-	{
-		SetCannonState(Aim);
-		
-	}
 	
-	else {
-		tex.fireWish = 0;
-		tex.tankMove = tankNet::TankMovementOptions::HALT;
-		tex.cannonMove = tankNet::CannonMovementOptions::RIGHT;
-	     }*/
 	if (current.position - previous.position < 20)
 	{
 		cTank = Reverse;
@@ -278,6 +196,8 @@ void Agent::right()
 void Agent::left()
 {
 	tex.tankMove = tankNet::TankMovementOptions::LEFT;
+
+	cTank = Scout;
 }
 
 void Agent::reverse()
@@ -333,7 +253,6 @@ tankNet::TankBattleCommand Agent::update(const tankNet::TankBattleStateData &sta
 	switch (cCannon)
 	{
 	case Scan: scan(); break;
-	case Aim: aim(); break;
 	case Fire: fire(); break;
 	case CRight: cRight(); break;
 	case CLeft: cLeft(); break;
